@@ -1,0 +1,15 @@
+{
+  "name": "ts-yarn-workspace-demo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "t7yang <t7yang@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "workspaces": ["packages/*"],
+  "scripts": {
+    "clean": "lerna run clean",
+    "build": "lerna run build",
+    "pub": "lerna publish",
+    "test": "lerna run test"
+  }
+}
