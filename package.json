@@ -7,9 +7,9 @@
   "private": true,
   "workspaces": ["packages/*"],
   "scripts": {
-    "clean": "lerna run clean",
-    "build": "lerna run build",
-    "pub": "lerna publish",
-    "test": "lerna run test"
+    "clean": "yarn lerna run clean",
+    "build": "yarn lerna run build",
+    "pub": "yarn lerna publish",
+    "test": "yarn lerna run test"
   }
 }

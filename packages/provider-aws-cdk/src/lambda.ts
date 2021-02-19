@@ -1,4 +1,5 @@
 import { APIGatewayProxyEvent, Context, APIGatewayProxyResult, ALBEvent, ALBResult, ALBEventRequestContext } from "aws-lambda";
+import { ReturnedPromiseResolvedType, router } from '../../core/src/typescript';
 
 type AsyncRequestResponseHandler<TRequest, TResponse> = (request: TRequest) => Promise<TResponse>
 
@@ -11,9 +12,11 @@ type withStatusCode = { statusCode: number }
  */
 type withBody = { body?: string | null }
 
+
+
 const awsAsyncHttpFunction = <TEvent extends withBody, TContext, TResult extends withStatusCode & withBody>(
-    ) => <TRequest, TResponse>(fun: AsyncRequestResponseHandler<TRequest, TResponse>)
-        : (event: TEvent, context: TContext) => Promise<TResult> => {
+) => <TRequest, TResponse>(fun: AsyncRequestResponseHandler<TRequest, TResponse>)
+        : ((event: TEvent, context: TContext) => Promise<TResult>) => {
         return (_event: TEvent, _context: TContext): Promise<TResult> => {
             return new Promise<TResult>(async (resolve, reject) => {
                 try {
@@ -41,3 +44,5 @@ export const apiGatewayFunction = awsAsyncHttpFunction<APIGatewayProxyEvent, Con
  * Wraps a function of type (request:TRequest) => TResponse for AWS Application Load Balancer invocation.
  */
 export const albFunction = awsAsyncHttpFunction<ALBEvent, ALBEventRequestContext, ALBResult>()
+
+albFunction(async (i:{foo:1}) => true).withRoute("/foo/bar/:fizz/:buzz", )
